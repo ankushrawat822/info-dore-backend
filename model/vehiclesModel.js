@@ -1,12 +1,30 @@
 const mongoose = require('mongoose');
 
-const vehicleSchema = new mongoose.Schema({
-  id: {
-    type: String,
+const allocationSchema = new mongoose.Schema({
+  isAllocation: {
+    type: Boolean,
     required: true,
-    unique: true,
+    default: false
+  },
+  project: {
+    type: String,
     trim: true
   },
+  start: {
+    type: Date,
+    default: Date.now
+  },
+  end: {
+    type: Date
+  },
+  user: {
+    type: String,
+    trim: true
+  }
+})
+
+const vehicleSchema = new mongoose.Schema({
+ 
   type: {
     type: String,
     required: true,
@@ -64,7 +82,8 @@ const vehicleSchema = new mongoose.Schema({
     required: true,
     enum: ['Active', 'Maintenance', 'Out of Service'],
     default: 'Active'
-  }
+  },
+  allocation: allocationSchema
 }, {
   timestamps: true
 });
