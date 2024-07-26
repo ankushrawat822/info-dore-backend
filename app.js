@@ -20,6 +20,10 @@ const getPayment = require("./route/payment.js")
 const verify = require("./route/payment.js")
 const order = require("./route/payment.js")
 
+// vehicles data
+const getAllVehicleData = require("./route/vehiclesRoutes.js")
+const addDataVechiles = require("./route/vehiclesRoutes.js")
+
 
 app.use(cors())
 app.use(express.json())
@@ -30,6 +34,11 @@ app.use("/api" , getPayment)
 app.use("/api" , verify)
 app.use("/api" , order)
 app.use("/api" , checkUser)
+
+
+// vehicles data
+app.use("/api" , getAllVehicleData )
+app.use("/api" , addDataVechiles )
 
 
 
