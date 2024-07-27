@@ -29,33 +29,24 @@ const addDataVechiles = async(req , res)=>{
 
 
 const updateVehicleAllocations = async ( req , res )=>{
-    const { vehicles } = req.body; // Expecting an array of objects with vehicle ID and allocation
+    const { vehicleIds, allocation } = req.body; // Expecting an array of vehicle IDs and a single allocation object
 
-    if (!Array.isArray(vehicles)) {
-      return res.status(400).json({ message: 'Invalid input, expected an array of vehicles' });
+    if (!Array.isArray(vehicleIds) || typeof allocation !== 'object') {
+      return res.status(400).json({ message: 'Invalid input, expected an array of vehicle IDs and an allocation object' });
     }
+  
 
     try {
-        const bulkOps = vehicles.map(vehicle => {
-            return {
-              updateOne: {
-                filter: { _id: vehicle._id }, // Assuming vehicle ID is passed in the body
-                update: { $set: { allocation: vehicle.allocation } },
-                upsert: false // Do not insert if the document doesn't exist
-              }
-            };
-          });
-      
-          if (bulkOps.length === 0) {
-            return res.status(400).json({ message: 'No vehicles to update' });
-          }
-      
-          const result = await Vehicle.bulkWrite(bulkOps);
+        const result = await Vehicle.updateMany(
+            { _id: { $in: vehicleIds } },
+            { $set: { allocation: allocation } }
+          );
       
           res.status(200).json({
-            message: `${result.modifiedCount} vehicle(s) updated successfully`,
+            message: `${result.nModified} vehicle(s) updated successfully`,
             result
           });
+      
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error updating vehicle allocations', error: error.message });

@@ -17,7 +17,7 @@ const allocationSchema = new mongoose.Schema({
   end: {
     type: Date
   },
-  user: {
+  allocatedTo: {
     type: String,
     trim: true
   }
