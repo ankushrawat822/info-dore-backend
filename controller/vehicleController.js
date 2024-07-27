@@ -29,7 +29,9 @@ const addDataVechiles = async(req , res)=>{
 
 
 const updateVehicleAllocations = async ( req , res )=>{
-    const { vehicleIds, allocation } = req.body; // Expecting an array of vehicle IDs and a single allocation object
+    const { vehicleIds, allocation } = req.body; 
+    allocation.isAllocation = true;
+    // Expecting an array of vehicle IDs and a single allocation object
 
     if (!Array.isArray(vehicleIds) || typeof allocation !== 'object') {
       return res.status(400).json({ message: 'Invalid input, expected an array of vehicle IDs and an allocation object' });
@@ -39,11 +41,12 @@ const updateVehicleAllocations = async ( req , res )=>{
     try {
         const result = await Vehicle.updateMany(
             { _id: { $in: vehicleIds } },
-            { $set: { allocation: allocation } }
+            { $set: { allocation: allocation,  status: 'Active'  } },
+           
           );
       
           res.status(200).json({
-            message: `${result.nModified} vehicle(s) updated successfully`,
+            message: `${result.modifiedCount} vehicle(s) updated successfully`,
             result
           });
       
