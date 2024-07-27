@@ -29,7 +29,7 @@ const calculateVehicleMetrics = (vehicleData) => {
     const timeSinceLastMaintenance = currentDate - lastMaintenanceDate;
     const timeProgress = (timeSinceLastMaintenance / maintenanceInterval) * 100;
     const mileageProgress = (vehicleData.mileage % mileageInterval) / mileageInterval * 100;
-    const maintenanceProgress = Math.min(Math.max(timeProgress, mileageProgress), 100);
+    const maintenanceProgress = Math.min(Math.max(timeProgress, mileageProgress), 100) * 100;
   
     // Calculate next maintenance date
     const nextMaintenanceDate = new Date(lastMaintenanceDate.getTime() + maintenanceInterval);
@@ -37,11 +37,11 @@ const calculateVehicleMetrics = (vehicleData) => {
     // Calculate fuel efficiency (in km/l)
     // Assume base efficiency of 3 km/l for garbage trucks and 10 km/l for cars
     const baseFuelEfficiency = vehicleData.type === 'Garbage Truck' ? 3 : 10;
-    const fuelEfficiency = baseFuelEfficiency * (1 - (vehicleAge * 0.01));
+    const fuelEfficiency = baseFuelEfficiency * (1 - (vehicleAge * 0.01)) * 10;
   
     return {
       nextMaintenance: nextMaintenanceDate,
-      maintenanceProgress: maintenanceProgress,
+      maintenanceProgress: maintenanceProgress ,
       fuelEfficiency: fuelEfficiency
     };
   };
