@@ -29,6 +29,7 @@ const updateVehicleAllocations = require("./route/vehiclesRoutes.js")
 const getAllBuildingData = require("./route/buildingRoutes.js")
 const addBuildingData = require("./route/buildingRoutes.js")
 const updateBuilding = require("./route/buildingRoutes.js")
+const getGeminiResult = require("./route/geminiAPI.js")
 
 
 app.use(cors())
@@ -51,6 +52,7 @@ app.use("/api", updateVehicleAllocations)
 app.use("/api" , getAllBuildingData)
 app.use("/api" , addBuildingData)
 app.use("/api" , updateBuilding)
+app.use("/api" , getGeminiResult)
 
 
 module.exports = app
