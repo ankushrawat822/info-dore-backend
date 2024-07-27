@@ -8,7 +8,7 @@ router.get('/buildings', getAllBuildingData );
 
 router.post('/add-buildings', addBuildingData );
 
-router.put('/buildings/:id', updateBuilding);
+router.put('/update-building/:id', updateBuilding);
 
 // router.put('/update-allocation' , updateVehicleAllocations)
 
