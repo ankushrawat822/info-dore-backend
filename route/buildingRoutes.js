@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllBuildingData, addBuildingData } = require('../controller/buildingController');
+const { getAllBuildingData, addBuildingData, updateBuilding } = require('../controller/buildingController');
 
 const router = express.Router();
 
@@ -7,6 +7,8 @@ const router = express.Router();
 router.get('/buildings', getAllBuildingData );
 
 router.post('/add-buildings', addBuildingData );
+
+router.put('/buildings/:id', updateBuilding);
 
 // router.put('/update-allocation' , updateVehicleAllocations)
 

@@ -28,6 +28,7 @@ const updateVehicleAllocations = require("./route/vehiclesRoutes.js")
 // building data
 const getAllBuildingData = require("./route/buildingRoutes.js")
 const addBuildingData = require("./route/buildingRoutes.js")
+const updateBuilding = require("./route/buildingRoutes.js")
 
 
 app.use(cors())
@@ -49,6 +50,7 @@ app.use("/api", updateVehicleAllocations)
 // building data
 app.use("/api" , getAllBuildingData)
 app.use("/api" , addBuildingData)
+app.use("/api" , updateBuilding)
 
 
 module.exports = app
