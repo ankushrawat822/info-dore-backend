@@ -28,7 +28,7 @@ const buildingSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        required: true,
+        // required: true,
         trim: true
     },
     address: {
@@ -38,37 +38,37 @@ const buildingSchema = new mongoose.Schema({
     },
     yearBuilt: {
         type: Number,
-        required: true,
+        // required: true,
         min: 1800,
         max: new Date().getFullYear()
     },
     totalArea: {
         type: Number,
-        required: true,
+        // required: true,
         min: 0
     },
     lastRenovation: {
         type: Date,
-        required: true
+        // required: true
     },
     nextInspection: {
         type: Date,
-        required: true
+        // required: true
     },
     maintenanceStatus: {
         type: Number,
-        required: true,
+        // required: true,
         min: 0,
         max: 100
     },
     energyEfficiency: {
         type: String,
-        required: true,
+        // required: true,
         enum: ['A', 'B', 'C', 'D', 'E', 'F']
     },
     occupancyRate: {
         type: Number,
-        required: true,
+        // required: true,
         min: 0,
         max: 100
     },

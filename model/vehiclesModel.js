@@ -80,7 +80,7 @@ const vehicleSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ['Active', 'Maintenance', 'Out of Service'],
+    enum: ['Active', 'Maintenance', 'Out of Service' , 'Allocated'],
     default: 'Active'
   },
   allocation: allocationSchema
