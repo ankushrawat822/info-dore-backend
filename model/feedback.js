@@ -21,6 +21,11 @@ const feedbackSchema = new mongoose.Schema({
 
    suggestion : {
       type : String
+   },
+
+   status :{
+        default : "Pending",
+        enum : [ 'Pending' , 'In_progress' , 'Resolved']
    }
    
 }
