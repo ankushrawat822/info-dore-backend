@@ -23,10 +23,11 @@ const feedbackSchema = new mongoose.Schema({
       type : String
    },
 
-   status :{
-        default : "Pending",
-        enum : [ 'Pending' , 'In_progress' , 'Resolved']
-   }
+   status: {
+        type: String,
+        default: 'Pending',
+        enum: ['Pending', 'In_progress', 'Resolved']
+    },
    
 }
  , {    timestamps: true });
