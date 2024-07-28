@@ -32,6 +32,12 @@ const updateBuilding = require("./route/buildingRoutes.js")
 const getGeminiResult = require("./route/geminiAPI.js")
 
 
+// feedback
+const getAllFeedback = require("./route/feedbackRoutes.js")
+const addFeedback = require("./route/feedbackRoutes.js")
+const getAllParks = require("./route/park.js")
+const addPark = require("./route/park.js")
+
 app.use(cors())
 app.use(express.json())
 
@@ -53,6 +59,14 @@ app.use("/api" , getAllBuildingData)
 app.use("/api" , addBuildingData)
 app.use("/api" , updateBuilding)
 app.use("/api" , getGeminiResult)
+// feedback
+
+app.use("/api" , getAllFeedback)
+app.use("/api" , addFeedback)
+
+// park
+app.use("/api" , getAllParks)
+app.use("/api" , addPark)
 
 
 module.exports = app

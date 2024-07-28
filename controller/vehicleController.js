@@ -29,7 +29,7 @@ const calculateVehicleMetrics = (vehicleData) => {
     const timeSinceLastMaintenance = currentDate - lastMaintenanceDate;
     const timeProgress = (timeSinceLastMaintenance / maintenanceInterval) * 100;
     const mileageProgress = (vehicleData.mileage % mileageInterval) / mileageInterval * 100;
-    const maintenanceProgress = Math.min(Math.max(timeProgress, mileageProgress), 100);
+    const maintenanceProgress = Math.min(Math.max(timeProgress, mileageProgress), 100) * 10;
   
     // Calculate next maintenance date
     const nextMaintenanceDate = new Date(lastMaintenanceDate.getTime() + maintenanceInterval);
