@@ -1,25 +1,83 @@
+const axios = require("axios");
 const Building = require("../model/buildingModel.js")
 
-const getAllBuildingData = async(req , res)=>{
-   
+
+
+
+const getBuildingLongitudeAndLatitude = async (req, res) => {
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    // Function to geocode addresses
+    async function geocodeAddresses(buildings) {
+        const geocodedBuildings = [];
+        for (const building of buildings) {
+
+            const address = `${building.address} Indore , India`;
+            try {
+                const { data } = await axios.get(`https://us1.locationiq.com/v1/search.php`, {
+                    params: {
+                        key: process.env.LOCATIONIQ_API_KEY,
+                        q: address,
+                        format: 'json'
+                    }
+
+                });
+
+                if (data.length > 0) {
+                    geocodedBuildings.push({
+                        ...building,
+                        lat: parseFloat(data[0].lat),
+                        lng: parseFloat(data[0].lon)
+                    });
+                } else {
+                    console.warn(`No geocode results for address: ${address}`);
+                }
+            } catch (err) {
+                console.error(`Error fetching geocode for address: ${address}`, err);
+            }
+
+            await delay(1000);
+        }
+        // console.log(geocodedBuildings)
+        return geocodedBuildings;
+    }
+
+
     try {
         const buildings = await Building.find();
-       
-      res.status(200).json(buildings);
-        
+        console.log(buildings);
+
+        const result = await geocodeAddresses(buildings)
+        console.log(result);
+
+        res.status(200).json(result);
+
     } catch (error) {
         res.status(500).json({ message: "Error fetching buildings", error: error.message });
         console.log(error)
     }
 }
 
-const addBuildingData = async(req , res)=>{
-   
+const getAllBuildingData = async (req, res) => {
+
+    try {
+        const buildings = await Building.find();
+
+        res.status(200).json(buildings);
+
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching buildings", error: error.message });
+        console.log(error)
+    }
+}
+
+const addBuildingData = async (req, res) => {
+
     try {
         const building = new Building(req.body);
         await building.save();
         res.status(201).json(building);
-        
+
     } catch (error) {
         res.status(500).json({ message: "Error adding building", error: error.message });
 
@@ -74,6 +132,6 @@ const updateBuilding = async (req, res) => {
 };
 
 
-module.exports = { 
-    getAllBuildingData , addBuildingData , updateBuilding
+module.exports = {
+    getAllBuildingData, addBuildingData, updateBuilding, getBuildingLongitudeAndLatitude
 }

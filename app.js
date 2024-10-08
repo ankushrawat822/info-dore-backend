@@ -30,6 +30,7 @@ const getAllBuildingData = require("./route/buildingRoutes.js")
 const addBuildingData = require("./route/buildingRoutes.js")
 const updateBuilding = require("./route/buildingRoutes.js")
 const getGeminiResult = require("./route/geminiAPI.js")
+const getBuildingLongitudeAndLatitude = require("./route/buildingRoutes.js")
 
 
 // feedback
@@ -59,6 +60,7 @@ app.use("/api" , getAllBuildingData)
 app.use("/api" , addBuildingData)
 app.use("/api" , updateBuilding)
 app.use("/api" , getGeminiResult)
+app.use("/api" , getBuildingLongitudeAndLatitude)
 // feedback
 
 app.use("/api" , getAllFeedback)
